@@ -37,12 +37,10 @@ class Item:
     @name.setter
     def name(self, value):
         self.__name = value
-        return self.__name
 
     @price.setter
     def price(self, value):
         self.__price = value
-        return self.__price
 
     # Readable representation of object
     def __repr__(self):
