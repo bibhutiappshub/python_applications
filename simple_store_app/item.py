@@ -8,8 +8,14 @@ class Item:
 
     def __init__(self, name, price, quantity):
         # Initializing instance attributes
-        self.name = name
-        self.price = price
+
+        # Applying double underscore makes this a private variable.
+        # Which is not accessible outside the class. We use @property decorator
+        # to access it through "name" and at the same time restrict it from
+        # re-assignment.
+
+        self.__name = name
+        self.__price = price
         self.quantity = quantity
 
         # Run validation on certain attributes
@@ -19,9 +25,28 @@ class Item:
         # Actions to perform
         Item.all.append(self)
 
+    # To make any property readable and prevent reassignment we use @property decorator
+    @property
+    def name(self):
+        return self.__name
+
+    @property
+    def price(self):
+        return self.__price
+
+    @name.setter
+    def name(self, value):
+        self.__name = value
+        return self.__name
+
+    @price.setter
+    def price(self, value):
+        self.__price = value
+        return self.__price
+
     # Readable representation of object
     def __repr__(self):
-        return f"Item('{self.name}', {self.price}, {self.quantity})"
+        return f"{self.__class__.__name__}('{self.name}', {self.price}, {self.quantity})"
 
     def apply_discount(self):
         self.price = self.price * self.pay_rate
